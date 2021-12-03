@@ -1,3 +1,4 @@
+
 """
 config variables
 """
@@ -13,6 +14,24 @@ rows = False
 columns = False
 diags = False
 tie = False
+
+
+def init_variables():
+    global game_on
+    game_on = False
+    global turn_counter
+    turn_counter = 1
+    global program_on
+    program_on = True
+    global rows
+    rows = False
+    global columns
+    columns = False
+    global diags
+    diags = False
+    global tie
+    tie = False
+    return
 
 
 def board_size(valid_size):
@@ -45,7 +64,6 @@ def display_board(board_spaces):
     print current board
     """
 
-    row_count = 0
     for iteration, row in enumerate(board_spaces):
         row = ' | '.join(row)
         if iteration in range(1, len(board_spaces)):
@@ -53,7 +71,6 @@ def display_board(board_spaces):
             format_barrier = raw_barrier.rstrip(raw_barrier[-1])
             print(format_barrier)
         print(' ' + row)
-    return
 
 
 def move_input(board_spaces, turn):
@@ -176,7 +193,6 @@ def print_win(turn):
     """
     win_turn = change_turn(turn)
     print(f'Wow!! Player {win_turn} won')
-    return
 
 
 def play_again():
@@ -197,6 +213,9 @@ main loop
 """
 
 while program_on:
+    # resets all global variables
+    init_variables()
+
     # prompt board size and update game state
     size, game_on = board_size(valid_sizes)
 
@@ -221,6 +240,7 @@ while program_on:
 
         # switches turn counter
         turn_counter = change_turn(turn_counter)
+
 
         # tie check
         if ' ' not in [item for sublist in playing_board for item in sublist] and game_on:
